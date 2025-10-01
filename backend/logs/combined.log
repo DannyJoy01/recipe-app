@@ -86,3 +86,8 @@
 29-09-2025 16:52:16 [INFO]: ::1 - - [29/Sep/2025:15:52:16 +0000] "POST /api/user/login HTTP/1.1" 200 401 "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36"
 29-09-2025 16:53:12 [INFO]: ::1 - - [29/Sep/2025:15:53:12 +0000] "OPTIONS /api/user/login HTTP/1.1" 204 0 "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36"
 29-09-2025 16:53:16 [INFO]: ::1 - - [29/Sep/2025:15:53:16 +0000] "POST /api/user/login HTTP/1.1" 200 401 "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36"
+01-10-2025 15:09:10 [INFO]: ::1 - - [01/Oct/2025:14:09:10 +0000] "POST /api/user/login HTTP/1.1" 200 401 "-" "Apidog/1.0.0 (https://apidog.com)"
+01-10-2025 15:13:07 [INFO]: ::1 - - [01/Oct/2025:14:13:07 +0000] "GET /api/otp/verify-otp HTTP/1.1" 404 157 "-" "Apidog/1.0.0 (https://apidog.com)"
+01-10-2025 15:15:17 [INFO]: ::1 - - [01/Oct/2025:14:15:17 +0000] "GET /api/otp/verify-otp HTTP/1.1" 404 157 "-" "Apidog/1.0.0 (https://apidog.com)"
+01-10-2025 15:15:47 [INFO]: ::1 - - [01/Oct/2025:14:15:47 +0000] "POST /api/user/login HTTP/1.1" 200 401 "-" "Apidog/1.0.0 (https://apidog.com)"
+01-10-2025 15:17:07 [INFO]: ::1 - - [01/Oct/2025:14:17:07 +0000] "GET /api/otp/verify-otp HTTP/1.1" 404 157 "-" "Apidog/1.0.0 (https://apidog.com)"
