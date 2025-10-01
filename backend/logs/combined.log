@@ -91,3 +91,5 @@
 01-10-2025 15:15:17 [INFO]: ::1 - - [01/Oct/2025:14:15:17 +0000] "GET /api/otp/verify-otp HTTP/1.1" 404 157 "-" "Apidog/1.0.0 (https://apidog.com)"
 01-10-2025 15:15:47 [INFO]: ::1 - - [01/Oct/2025:14:15:47 +0000] "POST /api/user/login HTTP/1.1" 200 401 "-" "Apidog/1.0.0 (https://apidog.com)"
 01-10-2025 15:17:07 [INFO]: ::1 - - [01/Oct/2025:14:17:07 +0000] "GET /api/otp/verify-otp HTTP/1.1" 404 157 "-" "Apidog/1.0.0 (https://apidog.com)"
+01-10-2025 16:02:53 [INFO]: ::1 - - [01/Oct/2025:15:02:53 +0000] "POST /api/user/login HTTP/1.1" 200 401 "-" "Apidog/1.0.0 (https://apidog.com)"
+01-10-2025 16:04:04 [INFO]: ::1 - - [01/Oct/2025:15:04:04 +0000] "POST /api/otp/verify-otp HTTP/1.1" 200 532 "-" "Apidog/1.0.0 (https://apidog.com)"
