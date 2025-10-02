@@ -5,20 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/index.js",
-    "dev": "nodemon src/index.js",
-    "postinstall": "cd ../frontend && npm install && npm run build"
+    "dev": "nodemon src/index.js"
   },
-  "keywords": [
-    "recipe",
-    "food",
-    "catering",
-    "kitchen",
-    "tutorial"
-  ],
-  "author": "Danny Joy",
-  "license": "ISC",
   "dependencies": {
     "bcrypt": "^6.0.0",
     "cors": "^2.8.5",
