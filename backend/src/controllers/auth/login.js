@@ -2,7 +2,6 @@ import User from "../../models/users/user.js";
 import { loginSchema } from "../../validators/authValidator.js";
 import bcrypt from "bcrypt";
 import httpStatus from "http-status";
-// import { jwtTempToken } from "../../utils/generateToken.js";
 import { createAndSaveOtp } from "../../utils/otp.js";
 import { sendOtpEmail } from "../../utils/email.js";
 import jwt from "jsonwebtoken";
