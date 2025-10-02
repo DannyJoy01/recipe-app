@@ -18,18 +18,6 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// 🔎 DEBUG HOOKS — these print every route mounting / get call
-const _use = app.use.bind(app);
-app.use = (...args) => {
-  console.log("🔎 app.use called with:", args[0]);
-  return _use(...args);
-};
-const _get = app.get.bind(app);
-app.get = (...args) => {
-  console.log("🔎 app.get called with:", args[0]);
-  return _get(...args);
-};
-
 // ─── MIDDLEWARE ──────────────────────────────────────────────────────────────
 
 // HTTP logging
@@ -46,7 +34,7 @@ app.use(
 app.use(express.json());
 app.use(cors());
 
-// Error logger (must be after morgan)
+// Error logger
 app.use((err, req, res, next) => {
   logger.error(`${err.status || 500} - ${err.message}`);
   res.status(err.status || 500).json({ error: err.message });
@@ -77,11 +65,9 @@ app.use("/api/otp", otpRoute);
 
 // ─── FRONTEND BUILD / DIST SERVING ──────────────────────────────────────────
 
-// Paths to frontend build outputs
 const clientBuildPath = path.join(__dirname, "..", "..", "frontend", "build");
 const clientDistPath = path.join(__dirname, "..", "..", "frontend", "dist");
 
-// Debug info
 console.log("Running in NODE_ENV:", process.env.NODE_ENV);
 try {
   console.log("Build folder contents:", fs.readdirSync(clientBuildPath));
@@ -94,16 +80,18 @@ try {
   console.log("No /dist folder found at:", clientDistPath);
 }
 
-// Serve React (build) or Vite (dist)
 if (process.env.NODE_ENV === "production") {
+  // Serve React build or Vite dist
   if (fs.existsSync(clientBuildPath)) {
     app.use(express.static(clientBuildPath));
-    app.get("*", (req, res) =>
+    // ✅ Correct catch-all
+    app.get("/*", (req, res) =>
       res.sendFile(path.join(clientBuildPath, "index.html"))
     );
   } else if (fs.existsSync(clientDistPath)) {
     app.use(express.static(clientDistPath));
-    app.get("*", (req, res) =>
+    // ✅ Correct catch-all
+    app.get("/*", (req, res) =>
       res.sendFile(path.join(clientDistPath, "index.html"))
     );
   } else {
