@@ -18,6 +18,18 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// 🔎 DEBUG HOOKS — these print every route mounting / get call
+const _use = app.use.bind(app);
+app.use = (...args) => {
+  console.log("🔎 app.use called with:", args[0]);
+  return _use(...args);
+};
+const _get = app.get.bind(app);
+app.get = (...args) => {
+  console.log("🔎 app.get called with:", args[0]);
+  return _get(...args);
+};
+
 // ─── MIDDLEWARE ──────────────────────────────────────────────────────────────
 
 // HTTP logging
