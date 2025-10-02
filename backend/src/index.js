@@ -69,33 +69,26 @@ const clientBuildPath = path.join(__dirname, "..", "..", "frontend", "build");
 const clientDistPath = path.join(__dirname, "..", "..", "frontend", "dist");
 
 console.log("Running in NODE_ENV:", process.env.NODE_ENV);
-try {
-  console.log("Build folder contents:", fs.readdirSync(clientBuildPath));
-} catch {
-  console.log("No /build folder found at:", clientBuildPath);
-}
-try {
-  console.log("Dist folder contents:", fs.readdirSync(clientDistPath));
-} catch {
-  console.log("No /dist folder found at:", clientDistPath);
-}
 
 if (process.env.NODE_ENV === "production") {
-  // Serve React build or Vite dist
+  // Prefer React build, fallback to Vite dist
+  let staticPath = null;
   if (fs.existsSync(clientBuildPath)) {
-    app.use(express.static(clientBuildPath));
-    // ✅ Correct catch-all
-    app.get("/*", (req, res) =>
-      res.sendFile(path.join(clientBuildPath, "index.html"))
-    );
+    staticPath = clientBuildPath;
+    console.log("Serving React build from:", staticPath);
   } else if (fs.existsSync(clientDistPath)) {
-    app.use(express.static(clientDistPath));
-    // ✅ Correct catch-all
+    staticPath = clientDistPath;
+    console.log("Serving Vite dist from:", staticPath);
+  }
+
+  if (staticPath) {
+    app.use(express.static(staticPath));
+    // ✅ Correct wildcard catch-all
     app.get("/*", (req, res) =>
-      res.sendFile(path.join(clientDistPath, "index.html"))
+      res.sendFile(path.join(staticPath, "index.html"))
     );
   } else {
-    console.warn("No client build files found to serve.");
+    console.warn("No client build/dist files found to serve.");
   }
 }
 
