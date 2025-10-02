@@ -18,10 +18,10 @@ dotenv.config();
 
 const PORT = process.env.PORT || 5000;
 
-if (process.env.ENV === "development") {
+// logging
+if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
-
 app.use(
   morgan("combined", {
     stream: {
@@ -30,11 +30,13 @@ app.use(
   })
 );
 
+// error logger
 app.use((err, req, res, next) => {
   logger.error(`${err.status || 500} - ${err.message}`);
   res.status(err.status || 500).json({ error: err.message });
 });
 
+// root route
 app.get("/", (req, res) => {
   res.send("Welcome to Danny's Kitchen");
 });
@@ -46,23 +48,35 @@ app.use(cors());
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
-
 const UPLOADS_DIR = process.env.UPLOADS_DIR || path.join(__dirname, "uploads");
 if (!fs.existsSync(UPLOADS_DIR)) {
   fs.mkdirSync(UPLOADS_DIR, { recursive: true });
 }
 app.use("/uploads", express.static(UPLOADS_DIR));
 
+// api routes
 app.use("/api/user", apiLimiter, userRoutes);
 app.use("/api/recipe", recipeRoutes);
 app.use("/api/otp", otpRoute);
 
-// serve frontend
-const clientBuildPath = path.join(__dirname, "..", "..", "frontend", "build"); // React
-const clientDistPath = path.join(__dirname, "..", "..", "frontend", "dist"); // Vite
+// serve frontend build (Vite dist or React build)
+const clientBuildPath = path.join(__dirname, "..", "..", "frontend", "build");
+const clientDistPath = path.join(__dirname, "..", "..", "frontend", "dist");
 
-if (process.env.ENV === "production") {
+// 
+console.log("Running in NODE_ENV:", process.env.NODE_ENV);
+try {
+  console.log("Build folder contents:", fs.readdirSync(clientBuildPath));
+} catch (e) {
+  console.log("No /build folder found at:", clientBuildPath);
+}
+try {
+  console.log("Dist folder contents:", fs.readdirSync(clientDistPath));
+} catch (e) {
+  console.log("No /dist folder found at:", clientDistPath);
+}
+
+if (process.env.NODE_ENV === "production") {
   if (fs.existsSync(clientBuildPath)) {
     app.use(express.static(clientBuildPath));
     app.get("*", (req, res) => {
